@@ -30,7 +30,7 @@ namespace PublicHolidays.Tests
         {
             IConfiguration config = InitConfiguration();
             services.AddOptions();
-            services.AddTransient<IPublicHolidays, PublicHolidaysService>();
+            services.AddTransient<ICountryHoliday, HolidayService>();
         }
     }
 }

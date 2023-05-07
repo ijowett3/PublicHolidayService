@@ -3,15 +3,15 @@ using System.Text.Json;
 using System.Net;
 using HolidaysService;
 
-public class PublicHolidaysService : IPublicHolidays
+public class HolidayService : ICountryHoliday
 {
 
-    public PublicHolidaysService() 
+    public HolidayService() 
     { 
         
     }
 
-    public async Task<IEnumerable<HolidayDomainObject>> GetPublicHoliday(string CountryCode, DateTime date, bool useProxy = true)
+    public async Task<IEnumerable<HolidayDomainObject>> GetHoliday(string CountryCode, DateTime date, bool useProxy = true)
     {
         var jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
@@ -32,7 +32,7 @@ public class PublicHolidaysService : IPublicHolidays
             var publicHolidays = JsonSerializer.Deserialize<PublicHoliday[]>(jsonStream, jsonSerializerOptions);
 
             if (publicHolidays != null)
-                return publicHolidays.Where(x => x.Date == date).Select(x => new HolidayDomainObject(x.Name, x.CountryCode, x.Date));              
+                return publicHolidays.Where(x => x.Date == date).Select(x => new HolidayDomainObject(x.Name, x.CountryCode, x.Date));
         }
 
         return new List<HolidayDomainObject>().AsEnumerable();

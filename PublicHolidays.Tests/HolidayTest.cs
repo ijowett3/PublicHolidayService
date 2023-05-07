@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace PublicHolidays.Tests
 {
-    public class PublicHolidaysTest
+    public class HolidayTest
     {
-        IPublicHolidays _publicHolidays;
+        ICountryHoliday _publicHolidays;
 
-        public PublicHolidaysTest(IConfiguration config, IPublicHolidays publicHolidays)
+        public HolidayTest(IConfiguration config, ICountryHoliday publicHolidays)
         {
             _publicHolidays = publicHolidays;
         }
@@ -16,7 +16,7 @@ namespace PublicHolidays.Tests
         [InlineData("2023-01-02", "New Year's Day", "GB")]
         public async void TestMultipleHolidaysSameDay(DateTime date, string Name, string CountryCode)
         {
-            var list = (await _publicHolidays.GetPublicHoliday(CountryCode, date, true));
+            var list = (await _publicHolidays.GetHoliday(CountryCode, date, true));
 
             Assert.NotNull(list);
             Assert.Equal(2, list.Count());
@@ -35,7 +35,7 @@ namespace PublicHolidays.Tests
         [InlineData("10/3/2023", "German Unity Day", "DE")]
         public async void TestHolidaysServices(DateTime date, string Name, string CountryCode)
         {
-            var p = (await _publicHolidays.GetPublicHoliday(CountryCode, date, true)).FirstOrDefault();
+            var p = (await _publicHolidays.GetHoliday(CountryCode, date, true)).FirstOrDefault();
 
             Assert.NotNull(p);
             Assert.Equal(CountryCode, p.CountryCode);
@@ -47,7 +47,7 @@ namespace PublicHolidays.Tests
         [InlineData("3/2/2023", "US")]
         public async void TestNotHoliday(DateTime date, string CountryCode)
         {
-            var p = (await _publicHolidays.GetPublicHoliday(CountryCode, date, true)).FirstOrDefault();
+            var p = (await _publicHolidays.GetHoliday(CountryCode, date, true)).FirstOrDefault();
 
             Assert.Null(p);
         }
