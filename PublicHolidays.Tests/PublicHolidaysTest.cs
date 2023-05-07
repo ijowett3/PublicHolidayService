@@ -20,7 +20,16 @@ namespace PublicHolidays.Tests
             Assert.NotNull(p);
             Assert.Equal(CountryCode, p.CountryCode);
             Assert.Equal(date, p.Date);
-            Assert.Equal(LocalName, p.LocalName);
+            Assert.Equal(LocalName, p.Name);
+        }
+
+        [Theory]
+        [InlineData("3/2/2023", "US")]
+        public async void TestNotHoliday(DateTime date, string CountryCode)
+        {
+            var p = await _publicHolidays.GetPublicHoliday(CountryCode, date, true);
+
+            Assert.Null(p);
         }
     }
 }
