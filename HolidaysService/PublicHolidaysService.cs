@@ -25,7 +25,7 @@ public class PublicHolidaysService : IPublicHolidays
         }
 
         using var httpClient = new HttpClient(handler);
-        using var response = await httpClient.GetAsync("https://date.nager.at/api/v3/publicholidays/2022/US");
+        using var response = await httpClient.GetAsync($"https://date.nager.at/api/v3/publicholidays/{date.Year}/{CountryCode}");
         if (response.IsSuccessStatusCode)
         {
             using var jsonStream = await response.Content.ReadAsStreamAsync();

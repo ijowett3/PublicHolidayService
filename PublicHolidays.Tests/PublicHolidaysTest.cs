@@ -12,7 +12,7 @@ namespace PublicHolidays.Tests
         }
 
         [Theory]
-        [InlineData("8/5/2023", "Coronation Bank Holiday", "GB")]
+        [InlineData("5/8/2023", "Coronation Bank Holiday", "GB")]
         public async void TestHolidaysServices(DateTime date, string LocalName, string CountryCode)
         {
             var p = await _publicHolidays.GetPublicHoliday(CountryCode, date, true);
