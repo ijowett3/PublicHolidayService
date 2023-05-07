@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace PublicHolidays.Tests
 {
@@ -9,6 +10,22 @@ namespace PublicHolidays.Tests
         public PublicHolidaysTest(IConfiguration config, IPublicHolidays publicHolidays)
         {
             _publicHolidays = publicHolidays;
+        }
+
+        [Theory]
+        [InlineData("2023-01-02", "New Year's Day", "GB")]
+        public async void TestMultipleHolidaysSameDay(DateTime date, string Name, string CountryCode)
+        {
+            var list = (await _publicHolidays.GetPublicHoliday(CountryCode, date, true));
+
+            Assert.NotNull(list);
+            Assert.Equal(2, list.Count());
+            foreach (var p in list)
+            {
+                Assert.Equal(CountryCode, p.CountryCode);
+                Assert.Equal(date, p.Date);
+                Assert.Equal(Name, p.Name);
+            }
         }
 
         [Theory]
