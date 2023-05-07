@@ -32,7 +32,7 @@ public class PublicHolidaysService : IPublicHolidays
             var publicHolidays = JsonSerializer.Deserialize<PublicHoliday[]>(jsonStream, jsonSerializerOptions);
 
             if (publicHolidays != null)
-                return publicHolidays.Where(x => x.Date == date).Select(x => new HolidayDomainObject(x.LocalName, x.CountryCode, x.Date));              
+                return publicHolidays.Where(x => x.Date == date).Select(x => new HolidayDomainObject(x.Name, x.CountryCode, x.Date));              
         }
 
         return new List<HolidayDomainObject>().AsEnumerable();
