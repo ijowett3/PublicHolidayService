@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 public interface IPublicHolidays
 {
-    public Task<HolidayDomainObject> GetPublicHoliday(string CountryCode, DateTime date, bool useProxy = true);
+    public Task<IEnumerable<HolidayDomainObject>> GetPublicHoliday(string CountryCode, DateTime date, bool useProxy = true);
 }

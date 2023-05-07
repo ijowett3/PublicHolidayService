@@ -15,7 +15,7 @@ namespace PublicHolidays.Tests
         [InlineData("5/8/2023", "Coronation Bank Holiday", "GB")]
         public async void TestHolidaysServices(DateTime date, string LocalName, string CountryCode)
         {
-            var p = await _publicHolidays.GetPublicHoliday(CountryCode, date, true);
+            var p = (await _publicHolidays.GetPublicHoliday(CountryCode, date, true)).FirstOrDefault();
 
             Assert.NotNull(p);
             Assert.Equal(CountryCode, p.CountryCode);
@@ -27,7 +27,7 @@ namespace PublicHolidays.Tests
         [InlineData("3/2/2023", "US")]
         public async void TestNotHoliday(DateTime date, string CountryCode)
         {
-            var p = await _publicHolidays.GetPublicHoliday(CountryCode, date, true);
+            var p = (await _publicHolidays.GetPublicHoliday(CountryCode, date, true)).FirstOrDefault();
 
             Assert.Null(p);
         }
